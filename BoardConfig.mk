@@ -94,3 +94,33 @@ TW_INCLUDE_FUSE_EXFAT := true
 
 # NTFS Support
 TW_INCLUDE_FUSE_NTFS := true
+
+# SHRP
+# Path of your SHRP Tree
+SHRP_PATH := device/xiaomi/ugglite
+# Maintainer name
+SHRP_MAINTAINER := frelein29
+# Device codename
+SHRP_DEVICE_CODE := ugglite
+# put this 0 if device has no EDL mode
+SHRP_EDL_MODE := 1
+SHRP_EXTERNAL := /external_sd
+SHRP_INTERNAL := /sdcard
+SHRP_OTG := /usb_otg
+# Put 0 to disable flashlight
+SHRP_FLASH := 1
+# These are led paths, find yours then put here (Optional)
+SHRP_CUSTOM_FLASHLIGHT := true
+SHRP_FONP_1 := /sys/class/leds/flashlight/brightness
+SHRP_FONP_2 := /sys/class/leds/flashlight/brightness
+SHRP_FONP_3 := /sys/class/leds/flashlight/brightness
+# Max Brightness of LED (Optional)
+SHRP_FLASH_MAX_BRIGHTNESS := 1
+# Check your device's recovery path, dont use blindly
+SHRP_REC := /dev/block/bootdevice/by-name/recovery
+# Use this flag only if your device is A/B
+SHRP_AB := false
+# Recovery Type (It can be treble,normal,SAR) [Only for About Section]
+SHRP_REC_TYPE := Treble
+# Recovery Type (It can be A/B or A_only) [Only for About Section]
+SHRP_DEVICE_TYPE := A_Only
