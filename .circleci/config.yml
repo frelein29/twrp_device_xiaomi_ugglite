@@ -9,6 +9,8 @@ jobs:
       VENDOR: 'xiaomi'
       DEVICE: 'ugglite'
       VERSION: '2.2'
+      product_filename: '*ugglite*.zip'
+      chat_id: '-1001378095587'
    steps:
       - run:
           command: |
@@ -21,9 +23,11 @@ jobs:
            git config --global user.email "${GIT_EMAIL}"
            git config --global user.name "{GIT_NAME}"
            git config --global color.ui false
+           git clone https://github.com/frelein29/PublishBot PublishBot
            repo init --depth=1 -u git://github.com/SKYHAWK-Recovery-Project/platform_manifest_twrp_omni.git -b 9.0
            repo sync
            git clone https://github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME} -b ${CIRCLE_BRANCH} device/${VENDOR}/${DEVICE}
+           python3 PublishBot/main.py --before
            export ALLOW_MISSING_DEPENDENCIES=true
            export LC_ALL=C
            source build/envsetup.sh
@@ -34,6 +38,18 @@ jobs:
            mkdir ${UPLOAD_PATH}
            cp $BUILDFILE_ZIP $UPLOAD_PATH
            ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -n "SkyHawk Recovery Project $(echo $DEVICE)" -b "SHRP $(echo $VERSION)"  -c ${CIRCLE_SHA1} -delete ${VERSION} ${UPLOAD_PATH}
+           output_file=$(find out/target/product/ugglite/ -name "*ugglite*.zip")
+           if [ -f $output_file ]; then
+             cp $output_file ./
+           else
+             python3 PublishBot/main.py --success
+             exit 1
+           fi
+      - run:
+           name: Run on fail status
+           command: |
+              python3 PublishBot/main.py --failed
+           when: on_fail
 workflows:
   version: 2.1
   cooking:
