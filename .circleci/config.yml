@@ -34,6 +34,7 @@ jobs:
            source build/envsetup.sh
            lunch omni_${DEVICE}-eng
            make recoveryimage
+           ls -lh $(pwd)/out/target/product/${DEVICE}/
            export BUILDFILE_ZIP=$(find $(pwd)/out/target/product/${DEVICE}/*ugglite*.zip 2>/dev/null)
            export UPLOAD_PATH=$(pwd)/out/target/product/${DEVICE}/upload/
            echo $BUILDFILE_ZIP
