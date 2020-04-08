@@ -104,9 +104,9 @@ SHRP_MAINTAINER := frelein29
 SHRP_DEVICE_CODE := ugglite
 # put this 0 if device has no EDL mode
 SHRP_EDL_MODE := 1
-SHRP_EXTERNAL := /external_sd
+SHRP_EXTERNAL := /sdcard1
 SHRP_INTERNAL := /sdcard
-SHRP_OTG := /usb_otg
+SHRP_OTG := /usb-otg
 # Put 0 to disable flashlight
 SHRP_FLASH := 1
 # These are led paths, find yours then put here (Optional)
