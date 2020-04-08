@@ -9,7 +9,6 @@ jobs:
       VENDOR: 'xiaomi'
       DEVICE: 'ugglite'
       VERSION: '2.2'
-      product_filename: '*ugglite*.zip'
       chat_id: '-1001378095587'
    steps:
       - run:
@@ -37,20 +36,23 @@ jobs:
            make recoveryimage
            export BUILDFILE_ZIP=$(find $(pwd)/out/target/product/${DEVICE}/*ugglite*.zip 2>/dev/null)
            export UPLOAD_PATH=$(pwd)/out/target/product/${DEVICE}/upload/
+           echo $BUILDFILE_ZIP
+           echo $UPLOAD_PATH
            mkdir ${UPLOAD_PATH}
            cp $BUILDFILE_ZIP $UPLOAD_PATH
            ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -n "SkyHawk Recovery Project $(echo $DEVICE)" -b "SHRP $(echo $VERSION)"  -c ${CIRCLE_SHA1} -delete ${VERSION} ${UPLOAD_PATH}
            output_file=$(find out/target/product/ugglite/ -name "*ugglite*.zip")
-           if [ -f $output_file ]; then
-             cp $output_file ./
+           if [ -f $BUILDFILE_ZIP ]; then
+             export product_filename=$BUILDFILE_ZIP
+             python3 PublishBot/main.py --after
            else
-             python3 PublishBot/main.py --success
+             python3 PublishBot/main.py --fail
              exit 1
            fi
       - run:
            name: Run on fail status
            command: |
-              python3 PublishBot/main.py --failed
+              python3 PublishBot/main.py --fail
            when: on_fail
 workflows:
   version: 2.1
