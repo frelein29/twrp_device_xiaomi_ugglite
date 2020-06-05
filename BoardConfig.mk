@@ -81,7 +81,7 @@ RECOVERY_SDCARD_ON_DATA := true
 RECOVERY_GRAPHICS_USE_LINELENGTH := true
 TW_USE_TOOLBOX := true
 #TW_USE_BUSYBOX := true
-AB_OTA_UPDATER := false
+
 
 # Treble
 BOARD_NEEDS_VENDORIMAGE_SYMLINK := false
@@ -125,3 +125,6 @@ SHRP_AB := false
 SHRP_REC_TYPE := Treble
 # Recovery Type (It can be A/B or A_only) [Only for About Section]
 SHRP_DEVICE_TYPE := A_Only
+# SAR
+SHRP_NO_SAR_AUTOMOUNT := true
+BOARD_BUILD_SYSTEM_ROOT_IMAGE := false
